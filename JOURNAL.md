@@ -320,3 +320,10 @@ Once the data is live in Firebase, we will create a custom HTML page that pulls 
 ![CO2_Monitor_Diagram.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6Mjc3MCwicHVyIjoiYmxvYl9pZCJ9fQ==--77a2e3d3635dfc80406ea68ad001c8a7f2784d90/ChatGPT%20Image%20Oct%2017%2C%202025%2C%2003_08_03%20PM.png)
   
 
+## 10/17/2025 3:23 PM - HTML Embed In Google Sites  
+
+This part of the project focuses on creating a dynamic, web-based CO₂ monitor that displays live readings from the K30 sensor using Firebase as the backend. The Arduino continuously pushes CO₂ measurements, along with timestamps, to a Firebase Realtime Database, which allows for real-time updates anywhere with an internet connection. On the frontend, a custom HTML page embedded in Google Sites retrieves the latest data and displays it in two ways: a large numeric display showing the current CO₂ level and a live-updating line chart visualizing recent trends over time using Chart.js. This setup not only makes the data accessible globally without requiring local Wi-Fi but also provides a clear, interactive, and visually appealing way to monitor CO₂ levels in real time, all while keeping costs low through free tools.
+
+![Annotation 2025-10-16 142830.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6Mjc3NSwicHVyIjoiYmxvYl9pZCJ9fQ==--94471f7ded1bfec46b6f33325b022be4ae6a03e5/Annotation%202020-05-28%20142830.png)
+  
+
