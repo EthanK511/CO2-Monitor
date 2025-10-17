@@ -302,12 +302,21 @@ I used the Arduino Uno R4 WiFi’s built-in Wi-Fi capabilities to create a local
 </html>
 `  
 
-## 10/17/2025 3 PM - Live Data To Firebase  
+## 10/17/2025 3:06 PM - Live Data To Firebase  
 
 In this project, the Arduino Uno R4 WiFi reads real-time CO₂ levels from the K30 sensor via UART and initially displayed the data on a live-updating webpage hosted directly from the Arduino. The webpage used Chart.js to plot CO₂ readings over time, allowing wireless monitoring from any device on the same network. While this method was convenient for local visualization, it had limitations: data was only available while connected to the Arduino’s network, and historical readings could not be easily stored or analyzed. To improve this, the project was enhanced by sending CO₂ readings, along with timestamps, to a Firebase Realtime Database using HTTPS. This approach provides cloud-based logging, enabling secure remote access to historical data, long-term storage, and potential integration with analytics or dashboards. By combining live visualization with cloud logging, the system now offers both instant monitoring and persistent, accessible data for analysis over time.
 
 [https://firebase.studio/](url)
 
 ![Screenshot 2025-10-17 3.04.04 PM.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6Mjc2OSwicHVyIjoiYmxvYl9pZCJ9fQ==--13cbf0387058ff90217a37858576f354778a580d/Screenshot%202025-10-17%203.04.04%20PM.png)
+  
+
+## 10/17/2025 3:15 PM - Push The Data To Firebase and Next Steps  
+
+The next step in the project is to make the CO₂ readings from the K30 sensor on the Arduino Uno R4 WiFi accessible from anywhere by connecting the system to Firebase. We plan to have the Arduino push live CO₂ data to a Firebase Realtime Database or Firestore over Wi-Fi. This setup allows us to store readings securely in the cloud, so they are accessible from any device with an internet connection. Using Firebase also gives us built-in tools for authentication, security rules, and real-time updates, which makes it easier to manage and protect the data while keeping the system scalable.
+
+Once the data is live in Firebase, we will create a custom HTML page that pulls the CO₂ readings and updates dynamically using Firebase’s JavaScript SDK. To keep costs low and simplify hosting, we’ll embed this page into Google Sites, which provides a free, easy-to-use platform for sharing our live data. The HTML page can display the CO₂ levels in real-time using charts or numeric displays, and it will update automatically without needing a page refresh. This approach allows anyone with the link to view the readings from any device, effectively turning our local CO₂ monitor into a globally accessible, low-cost monitoring system.
+
+![CO2_Monitor_Diagram.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6Mjc3MCwicHVyIjoiYmxvYl9pZCJ9fQ==--77a2e3d3635dfc80406ea68ad001c8a7f2784d90/ChatGPT%20Image%20Oct%2017%2C%202025%2C%2003_08_03%20PM.png)
   
 
