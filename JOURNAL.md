@@ -302,3 +302,12 @@ I used the Arduino Uno R4 WiFi’s built-in Wi-Fi capabilities to create a local
 </html>
 `  
 
+## 10/17/2025 3 PM - Live Data To Firebase  
+
+In this project, the Arduino Uno R4 WiFi reads real-time CO₂ levels from the K30 sensor via UART and initially displayed the data on a live-updating webpage hosted directly from the Arduino. The webpage used Chart.js to plot CO₂ readings over time, allowing wireless monitoring from any device on the same network. While this method was convenient for local visualization, it had limitations: data was only available while connected to the Arduino’s network, and historical readings could not be easily stored or analyzed. To improve this, the project was enhanced by sending CO₂ readings, along with timestamps, to a Firebase Realtime Database using HTTPS. This approach provides cloud-based logging, enabling secure remote access to historical data, long-term storage, and potential integration with analytics or dashboards. By combining live visualization with cloud logging, the system now offers both instant monitoring and persistent, accessible data for analysis over time.
+
+[https://firebase.studio/](url)
+
+![Screenshot 2025-10-17 3.04.04 PM.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6Mjc2OSwicHVyIjoiYmxvYl9pZCJ9fQ==--13cbf0387058ff90217a37858576f354778a580d/Screenshot%202025-10-17%203.04.04%20PM.png)
+  
+
