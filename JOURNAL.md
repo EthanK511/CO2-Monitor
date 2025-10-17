@@ -340,7 +340,7 @@ The research and experimentation phase taught me a lot about microcontroller cap
 ![Screenshot 2025-10-17 3.33.36 PM.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6Mjc4MiwicHVyIjoiYmxvYl9pZCJ9fQ==--49d3d50350e2e740a1756802bae642702d23f544/Screenshot%202025-10-17%203.33.36%20PM.png)
   
 
-## 10/17/2025 4 PM - NEXT STEPS  
+## 10/17/2025 4:01 PM - NEXT STEPS  
 
 ![Screenshot 2025-10-17 4.00.12 PM.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6Mjc5NSwicHVyIjoiYmxvYl9pZCJ9fQ==--d4791286635f4cfbe2c4bd574a3128c1eb1b392a/Screenshot%202025-10-17%204.00.12%20PM.png)
 
@@ -425,4 +425,89 @@ The research and experimentation phase taught me a lot about microcontroller cap
 `
 
 made it in HTML cuz I was bored in class  
+
+## 10/17/2025 4:03 PM - Next Steps  
+
+![image.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6Mjc5NywicHVyIjoiYmxvYl9pZCJ9fQ==--1f794b32e56c577e14433c1a6ab37ffe7cd2f1cf/image.png)
+
+'<table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif;">
+  <thead style="background-color: #007BFF; color: white;">
+    <tr>
+      <th>Task</th>
+      <th>Difficulty</th>
+      <th>Estimated Time</th>
+      <th>Benefit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Add real-time alerts (color changes or warnings when CO₂ exceeds thresholds)</td>
+      <td>Medium</td>
+      <td>2–4 hours</td>
+      <td>Improves immediate safety awareness and visual feedback</td>
+    </tr>
+    <tr>
+      <td>Display longer-term trends (store more readings in Firebase and plot on a scrollable chart)</td>
+      <td>Medium</td>
+      <td>3–5 hours</td>
+      <td>Provides historical context for CO₂ levels</td>
+    </tr>
+    <tr>
+      <td>Add averages, min/max, rate-of-change indicators</td>
+      <td>Medium</td>
+      <td>2–3 hours</td>
+      <td>Gives more insight into air quality patterns</td>
+    </tr>
+    <tr>
+      <td>Implement error handling & auto-reconnect (Wi-Fi, sensor, Firebase failures)</td>
+      <td>High</td>
+      <td>4–6 hours</td>
+      <td>Increases system reliability and reduces downtime</td>
+    </tr>
+    <tr>
+      <td>Optimize solar/power management (sleep modes, low-power updates)</td>
+      <td>Medium</td>
+      <td>3–5 hours</td>
+      <td>Extends off-grid operation and efficiency</td>
+    </tr>
+    <tr>
+      <td>Make webpage mobile-friendly (responsive design for phones/tablets)</td>
+      <td>Low</td>
+      <td>2–3 hours</td>
+      <td>Improves accessibility and user experience</td>
+    </tr>
+    <tr>
+      <td>Set up multi-sensor support (monitor multiple locations)</td>
+      <td>High</td>
+      <td>6–8 hours</td>
+      <td>Expands project capability for spatial air quality monitoring</td>
+    </tr>
+    <tr>
+      <td>Add email/SMS alerts for high CO₂ levels</td>
+      <td>Medium</td>
+      <td>3–5 hours</td>
+      <td>Provides automated notifications for critical conditions</td>
+    </tr>
+    <tr>
+      <td>Integrate additional sensors (temperature, humidity, VOC)</td>
+      <td>Medium</td>
+      <td>4–6 hours</td>
+      <td>Creates a more comprehensive air quality monitoring system</td>
+    </tr>
+    <tr>
+      <td>Polish documentation (wiring diagrams, step-by-step guides, troubleshooting)</td>
+      <td>Low</td>
+      <td>2–4 hours</td>
+      <td>Makes it easier for others to replicate and learn from the project</td>
+    </tr>
+    <tr>
+      <td>Public sharing / deployment (GitHub, personal portfolio, custom domain)</td>
+      <td>Low</td>
+      <td>2–3 hours</td>
+      <td>Showcases the project and builds portfolio/credibility</td>
+    </tr>
+  </tbody>
+</table>'
+
+made it in HTML cuz I was bord in class  
 
