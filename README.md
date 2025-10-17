@@ -3,6 +3,16 @@
 This project is a solar-powered CO₂ monitoring system built using an Arduino Uno R4 WiFi and a K30 10,000 ppm CO₂ sensor.
 It continuously measures CO₂ concentration in the air and publishes live readings to a local HTML webpage over Wi-Fi — enabling real-time wireless monitoring. Additionally, readings with timestamps are sent to Firebase Realtime Database for cloud-based logging, remote access, and long-term data analysis.
 
+🧪 Research & Development
+
+The project began with extensive research to identify the best CO₂ sensor and microcontroller for reliable, long-term monitoring. After evaluating several options, I chose the K30 sensor for its high accuracy and 10,000 ppm range, as well as its UART communication capability. I initially experimented with the ESP8266 for its built-in Wi-Fi, but its limited memory and I/O flexibility made it less suitable for handling both the sensor and cloud integration. This led me to switch to the Arduino Uno R4 WiFi, which offered a more stable, flexible platform with sufficient resources and built-in wireless connectivity.
+
+I also explored the Arduino Cloud IoT system and the Web Editor to manage devices and push data online. While it worked for basic testing, I found it restrictive for full customization and long-term, cost-free deployment. This led me to adopt Firebase Realtime Database, which allows real-time, globally accessible data storage without additional cost. This choice also simplified integrating live web visualizations and remote access.
+
+Throughout the development process, I learned to configure UART communication, work with Arduino’s Wi-Fi libraries, and use HTTPS requests to send JSON-formatted readings to Firebase. I experimented with local HTML visualizations using Chart.js before embedding a dynamic, live-updating webpage into Google Sites for easy public access. Each decision—sensor selection, board choice, cloud platform, and web integration—was informed by research and hands-on testing.
+
+This iterative research and experimentation ensured a robust, scalable CO₂ monitoring system that provides real-time visualization, cloud logging, and remote access, while keeping costs low and leveraging free platforms whenever possible. The resulting setup combines hardware reliability with flexible software tools for both immediate monitoring and long-term data analysis.
+
 ⚙️ Features
 
 📡 Live CO₂ Readings via UART communication between the Arduino Uno R4 WiFi and K30 sensor
