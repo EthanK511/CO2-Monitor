@@ -1,0 +1,22 @@
+{
+  "value": 450,
+  "timestamp": 1726700000000
+}
+
+//under the path /co2/latest.
+
+Firebase storage:
+
+Arduino pushes readings as { value: 450, timestamp: 1726700000000 } under /co2/history in Firebase.
+
+This keeps a small history (last 50 readings) for the chart.
+
+Live chart:
+
+Uses Chart.js to display CO₂ over time.
+
+Updates automatically whenever new data is pushed to Firebase.
+
+Embedding in Google Sites:
+
+Go to Insert → Embed → Embed Code, paste this snippet, and it will show your live CO₂ monitor with a chart.

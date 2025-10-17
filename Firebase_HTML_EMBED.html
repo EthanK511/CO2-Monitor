@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Live CO₂ Monitor</title>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; background: #f9f9f9; }
+    h1 { color: #333; margin-bottom: 20px; }
+    #co2Value { font-size: 3em; color: #007BFF; margin-bottom: 5px; }
+    #timestamp { font-size: 1em; color: #555; margin-bottom: 30px; }
+    canvas { max-width: 600px; margin: auto; }
+  </style>
+</head>
+<body>
+
+  <h1>Live CO₂ Monitor</h1>
+  <div id="co2Value">-- ppm</div>
+  <div id="timestamp"></div>
+  <canvas id="co2Chart"></canvas>
+
+  <script>
+    // TODO: Replace with your Firebase project config
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    // Reference to CO2 readings in Firebase
+    const co2Ref = database.ref('co2/history'); // Store multiple readings for chart
+
+    // Chart.js setup
+    const ctx = document.getElementById('co2Chart').getContext('2d');
+    const co2Chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [], // timestamps
+        datasets: [{
+          label: 'CO₂ (ppm)',
+          data: [],
+          borderColor: '#007BFF',
+          backgroundColor: 'rgba(0, 123, 255, 0.2)',
+          tension: 0.3,
+          fill: true,
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: { 
+            title: { display: true, text: 'Time' },
+            type: 'time',
+            time: { unit: 'minute', tooltipFormat: 'HH:mm:ss' }
+          },
+          y: { 
+            title: { display: true, text: 'CO₂ (ppm)' },
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    // Listen for live updates
+    co2Ref.limitToLast(50).on('value', (snapshot) => {
+      const readings = snapshot.val();
+      const labels = [];
+      const data = [];
+
+      for (let key in readings) {
+        labels.push(new Date(readings[key].timestamp));
+        data.push(readings[key].value);
+      }
+
+      co2Chart.data.labels = labels;
+      co2Chart.data.datasets[0].data = data;
+      co2Chart.update();
+
+      // Update latest CO2 value
+      const latest = labels.length ? data[data.length - 1] : '--';
+      document.getElementById('co2Value').innerText = latest + " ppm";
+      document.getElementById('timestamp').innerText = labels.length ? "Last updated: " + labels[labels.length - 1].toLocaleString() : "";
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Live CO₂ Monitor</title>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; }
+    h1 { color: #333; }
+    #co2Value { font-size: 4em; color: #007BFF; }
+    #timestamp { margin-top: 10px; font-size: 1em; color: #555; }
+  </style>
+</head>
+<body>
+
+  <h1>Live CO₂ Reading</h1>
+  <div id="co2Value">-- ppm</div>
+  <div id="timestamp"></div>
+
+  <script>
+    // TODO: Replace these with your Firebase project config
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    // Reference to CO2 value in your database
+    const co2Ref = database.ref('co2/latest'); // Example path: /co2/latest
+
+    // Listen for live updates
+    co2Ref.on('value', (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        document.getElementById('co2Value').innerText = data.value + " ppm";
+        document.getElementById('timestamp').innerText = "Last updated: " + new Date(data.timestamp).toLocaleString();
+      }
+    });
+  </script>
+
+</body>
+</html>
