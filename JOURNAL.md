@@ -10,8 +10,295 @@ This is my journal of the design and building process of **CO2 Monitor**.
 You can view this journal in more detail on **Hack Club Blueprint** [here](https://blueprint.hackclub.com/projects/611).
 
 
-## 10/17/2025 - Custom HTML Page with Arduino Web page  
+## 10/17/2025 2:34 PM - Custom HTML Page with Arduino Web page  
 
 To connect the Arduino Uno R4 WiFi to the K30 CO₂ sensor, I used a UART (serial) communication setup. The K30’s TX pin was connected to the Arduino’s RX pin (12), and the K30’s RX pin to the Arduino’s TX pin (13), the K30 ground connected to the Arduino ground, and the K30 VCC connected to the Arduino 5V (when using a Arduino uno R3 or some other boards you may need an external power supply). Using the Arduino’s hardware serial interface, I wrote a simple sketch to request CO₂ concentration data from the sensor and display the live readings on the Serial Monitor. This allowed real-time monitoring of CO₂ levels directly through the Arduino IDE, ensuring reliable data exchange between the sensor and microcontroller.![Screenshot 2025-10-17 2.33.43 PM.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6Mjc1OSwicHVyIjoiYmxvYl9pZCJ9fQ==--93da27057e57f6241bef4271edb813e0b71158d8/Screenshot%202025-10-17%202.33.43%20PM.png)
   
+
+## 10/17/2025 2:42 PM - Web Server with Arduino UNO R4 Wifi  
+
+I used the Arduino Uno R4 WiFi’s built-in Wi-Fi capabilities to create a local web server that displayed live CO₂ data. After connecting the Arduino to a Wi-Fi network, I programmed it to serve an HTML webpage accessible via its IP address. The webpage dynamically updated with the latest CO₂ readings received from the K30 sensor, allowing real-time monitoring through any browser on the same network. This made the system fully wireless—no USB connection was required to view the data. However, the limitation was that the webpage could only be accessed by devices connected to the same Wi-Fi network as the Arduino and the Arduino required a constant supply of power from a power bank.
+
+***EXAMPLE HTML AND PHOTO ONLY. DOES NOT DIPLAY REAL DATA***
+
+![Screenshot 2025-10-17 2.40.58 PM.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6Mjc2MCwicHVyIjoiYmxvYl9pZCJ9fQ==--19764876d249023d7e38bbe07bcf37089240d041/Screenshot%202025-10-17%202.40.58%20PM.png)
+
+
+`<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CO₂ Monitor — Arduino Uno R4 WiFi</title>
+  <style>
+    :root{
+      --bg: #fbfbfb;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --accent: #0f766e;
+      --danger: #b91c1c;
+      --glass: rgba(15,118,110,0.08);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#f7f9fb,var(--bg));}
+    .wrap{
+      max-width:980px;
+      margin:28px auto;
+      padding:24px;
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:20px;
+      align-items:start;
+    }
+    .card{
+      background:var(--card);
+      border-radius:12px;
+      box-shadow:0 6px 20px rgba(16,24,40,0.06);
+      padding:20px;
+    }
+    .header{
+      display:flex;
+      gap:16px;
+      align-items:center;
+    }
+    .title{
+      font-size:20px;
+      font-weight:700;
+      color:#0f172a;
+    }
+    .subtitle{color:var(--muted);font-size:13px}
+    .big-readout{
+      margin-top:18px;
+      display:flex;
+      align-items:baseline;
+      gap:14px;
+    }
+    .ppm{
+      font-size:56px;
+      font-weight:800;
+      color:#0f172a;
+      letter-spacing:-1px;
+    }
+    .unit{
+      color:var(--muted);
+      font-weight:600;
+      font-size:14px;
+    }
+    .meta { margin-top:8px; color:var(--muted); font-size:13px }
+    .graph-wrap{ width:100%; height:220px; margin-top:18px; }
+    canvas{ width:100%; height:100%; display:block; border-radius:8px; background:linear-gradient(180deg, rgba(15,118,110,0.03), rgba(15,118,110,0.01)); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);}
+    .side{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .stat{
+      padding:14px;
+      border-radius:10px;
+      background:var(--glass);
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .stat .label{font-size:12px;color:var(--muted)}
+    .stat .value{font-weight:700;font-size:20px;color:#0f172a}
+    .footer-note{font-size:12px;color:var(--muted);margin-top:12px}
+    @media (max-width:880px){
+      .wrap{grid-template-columns:1fr; padding:16px}
+      .side{flex-direction:row; gap:10px}
+      .side .stat{flex:1}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <div class="header">
+        <div>
+          <div class="title">CO₂ Monitor</div>
+          <div class="subtitle">Arduino Uno R4 WiFi • K30 sensor • Live data</div>
+        </div>
+      </div>
+
+      <div class="big-readout" aria-live="polite">
+        <div class="ppm" id="co2Value">—</div>
+        <div class="unit">ppm</div>
+      </div>
+      <div class="meta" id="lastSeen">waiting for data…</div>
+
+      <div class="graph-wrap card" style="margin:0; padding:12px; box-shadow:none;">
+        <canvas id="chart" width="600" height="220" role="img" aria-label="CO2 trend chart"></canvas>
+      </div>
+
+      <div class="footer-note">Note: page served from the Arduino's IP. You must be on the same Wi-Fi network to view it.</div>
+    </section>
+
+    <aside class="side">
+      <div class="stat card">
+        <div class="label">Device</div>
+        <div class="value">Arduino Uno R4 WiFi</div>
+      </div>
+      <div class="stat card">
+        <div class="label">Sensor</div>
+        <div class="value">K30 (0–10,000 ppm)</div>
+      </div>
+      <div class="stat card">
+        <div class="label">Power</div>
+        <div class="value">5–9 W solar panel</div>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    // Configuration: endpoint the Arduino serves. Adjust if your sketch uses a different route.
+    const ENDPOINT = '/co2'; // e.g. http://192.168.1.53/co2 when testing from another device
+    const POLL_INTERVAL = 5000; // ms
+    const MAX_POINTS = 60; // number of points shown in chart
+
+    // DOM
+    const co2El = document.getElementById('co2Value');
+    const lastSeenEl = document.getElementById('lastSeen');
+    const canvas = document.getElementById('chart');
+    const ctx = canvas.getContext('2d');
+
+    // Data store
+    let readings = []; // {t:timestamp, v:value}
+
+    // Helpers
+    function isoTime(ts=Date.now()){
+      return new Date(ts).toLocaleTimeString();
+    }
+
+    async function fetchCO2(){
+      try{
+        const res = await fetch(ENDPOINT, {cache:'no-store'});
+        if(!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        // expect {co2: 415} or {"co2": 415}
+        const value = Number(data.co2 ?? data.co2_ppm ?? data.value);
+        if(Number.isFinite(value)){
+          pushReading(value);
+          updateUI(value);
+        } else {
+          console.warn('Unexpected payload', data);
+          lastSeenEl.textContent = 'Unexpected response from device';
+        }
+      } catch(err){
+        console.error('Fetch failed', err);
+        lastSeenEl.textContent = 'Unable to reach device — are you on the same Wi-Fi?';
+      }
+    }
+
+    function pushReading(v){
+      readings.push({t:Date.now(), v: Math.round(v)});
+      if(readings.length > MAX_POINTS) readings.shift();
+      drawChart();
+    }
+
+    function updateUI(v){
+      co2El.textContent = Math.round(v);
+      lastSeenEl.textContent = `Last update: ${isoTime()}`;
+    }
+
+    // Simple line chart drawn on canvas
+    function drawChart(){
+      const W = canvas.width = canvas.clientWidth * devicePixelRatio;
+      const H = canvas.height = canvas.clientHeight * devicePixelRatio;
+      ctx.clearRect(0,0,W,H);
+
+      if(readings.length === 0) {
+        // placeholder grid
+        drawGrid(W,H);
+        ctx.fillStyle = '#7c8a93';
+        ctx.font = `${12*devicePixelRatio}px sans-serif`;
+        ctx.fillText('No data yet', W/2 - 30*devicePixelRatio, H/2);
+        return;
+      }
+
+      // compute min/max with some padding
+      const values = readings.map(r => r.v);
+      let min = Math.min(...values);
+      let max = Math.max(...values);
+      if (min === max) { min = Math.max(0, min - 50); max = max + 50; }
+      const padding = 0.08 * (max - min);
+      min = min - padding; max = max + padding;
+
+      drawGrid(W,H, min, max);
+
+      // coords
+      const left = 8*devicePixelRatio;
+      const right = W - 8*devicePixelRatio;
+      const top = 8*devicePixelRatio;
+      const bottom = H - 20*devicePixelRatio;
+      const width = right - left;
+      const height = bottom - top;
+
+      ctx.lineWidth = 2*devicePixelRatio;
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
+
+      ctx.beginPath();
+      readings.forEach((pt, i) => {
+        const x = left + (i / Math.max(1, readings.length-1)) * width;
+        const y = top + ((max - pt.v) / (max - min)) * height;
+        if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      });
+      ctx.strokeStyle = '#0f766e';
+      ctx.stroke();
+
+      // fill under curve
+      ctx.lineTo(right, bottom);
+      ctx.lineTo(left, bottom);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(15,118,110,0.08)';
+      ctx.fill();
+
+      // right-side current value label
+      const last = readings[readings.length-1];
+      const lastX = left + (readings.length-1) / Math.max(1, readings.length-1) * width;
+      const lastY = top + ((max - last.v) / (max - min)) * height;
+      ctx.fillStyle = '#0f172a';
+      ctx.font = `${12*devicePixelRatio}px sans-serif`;
+      ctx.fillText(`${last.v} ppm`, Math.min(lastX + 8*devicePixelRatio, right - 60*devicePixelRatio), lastY - 6*devicePixelRatio);
+    }
+
+    function drawGrid(W,H, min=0, max=1000){
+      // light background and horizontal ticks
+      ctx.fillStyle = 'rgba(255,255,255,0.0)';
+      ctx.fillRect(0,0,W,H);
+
+      ctx.strokeStyle = 'rgba(15,23,42,0.06)';
+      ctx.lineWidth = 1 * devicePixelRatio;
+      const ticks = 4;
+      for(let i=0;i<=ticks;i++){
+        const y = (i/ticks) * (H - 32*devicePixelRatio) + 8*devicePixelRatio;
+        ctx.beginPath();
+        ctx.moveTo(8*devicePixelRatio, y);
+        ctx.lineTo(W - 8*devicePixelRatio, y);
+        ctx.stroke();
+        // label
+        const value = Math.round(max - (i/ticks)*(max-min));
+        ctx.fillStyle = 'rgba(15,23,42,0.45)';
+        ctx.font = `${11*devicePixelRatio}px sans-serif`;
+        ctx.fillText(String(value), 10*devicePixelRatio, y - 4*devicePixelRatio);
+      }
+    }
+
+    // Kick off
+    fetchCO2(); // initial
+    setInterval(fetchCO2, POLL_INTERVAL);
+
+    // For demos where you don't have an Arduino handy,
+    // uncomment the block below to simulate readings:
+    /*
+    setInterval(()=> {
+      const sim = 380 + Math.round(80*Math.sin(Date.now()/60000) + Math.random()*30);
+      pushReading(sim);
+      updateUI(sim);
+    }, 2000);
+    */
+  </script>
+</body>
+</html>
+`  
 
