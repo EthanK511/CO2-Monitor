@@ -528,3 +528,10 @@ To take the project beyond a local network webpage, I integrated Firebase and Gi
 ![Screenshot 2025-10-20 7.47.23 AM.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MzcyOSwicHVyIjoiYmxvYl9pZCJ9fQ==--c7d52399daea7b74623f2eb0083ed7984a37aecf/Screenshot%202025-10-20%207.47.23%20AM.png)
   
 
+## 10/20/2025 7:51 AM - MORE BUGS :(  
+
+Setting up Firebase and GitHub Pages to work together took a lot of trial and error. I started by creating a Firebase project and linking it to my Arduino using the Realtime Database REST API so it could send JSON-formatted CO₂ readings over HTTPS. One of the first major bugs I ran into was authentication errors — Firebase kept rejecting my POST requests until I adjusted the database rules to allow authenticated writes and formatted the URL correctly with the “.json” endpoint. Another issue came from HTTPS certificate mismatches when connecting from the Arduino Uno R4 WiFi, which required using the WiFiClientSecure library and updating the certificate fingerprint manually. On the front-end, I ran into CORS policy errors when fetching live data from Firebase in JavaScript, which I fixed by restructuring my fetch calls and enabling the proper Firebase web API configuration. Hosting on GitHub Pages introduced its own challenges: cached data wasn’t refreshing properly, so I had to add cache-busting query parameters to the Firebase fetch URLs and disable aggressive caching in the meta tags. I also fought through layout bugs when embedding the site in Google Sites and mobile browsers — charts would resize incorrectly or text would clip on smaller screens until I implemented CSS media queries, viewport scaling, and dynamic resizing with JavaScript. After several hours of debugging and cross-platform testing, the site finally rendered smoothly and updated in real time on all devices.
+
+![Screenshot 2025-10-20 7.49.24 AM.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MzczMSwicHVyIjoiYmxvYl9pZCJ9fQ==--1ce07e101290ce4366e7b76f2cba27b7e041e3e3/Screenshot%202025-10-20%207.49.24%20AM.png)
+  
+
