@@ -546,3 +546,13 @@ Getting Firebase and GitHub Pages to work together for real-time CO₂ updates w
 spent most of the weekend on this :( dang bugs
 on the plus side I won my ultimate turniment  
 
+## 10/20/2025 4 PM - BETER CODE IS HERE  
+
+there's more better code if you have some of the newer Arduino boards or plan to use an esp instead this code should work.
+and of course I forgot to remove my API key so had to change that opsie
+every line of this code has been tested and works but there's more on the horizon
+
+![download.jpg](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6Mzg3MCwicHVyIjoiYmxvYl9pZCJ9fQ==--9566b22f70c3a172543d7fcd3bccaf2b6a87de1f/download.jpg)
+
+took me a minute to get this done tho  
+
