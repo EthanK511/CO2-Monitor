@@ -531,9 +531,18 @@ Setting up Firebase and GitHub Pages to work together took a lot of trial and er
 ![Screenshot 2025-10-20 7.49.24 AM.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MzczMSwicHVyIjoiYmxvYl9pZCJ9fQ==--1ce07e101290ce4366e7b76f2cba27b7e041e3e3/Screenshot%202025-10-20%207.49.24%20AM.png)
   
 
-## 10/20/2025 1 PM - LIVE Web App with firebase and github  
+## 10/20/2025 1:23 PM - LIVE Web App with firebase and github  
 
 One of the most exciting parts of this project was realizing that I could use Firebase and GitHub Pages together to make my CO₂ monitor work like a real web app that runs on iPhone and Android. By sending the live sensor data from the Arduino Uno R4 WiFi directly to Firebase Realtime Database, I was able to stream updates instantly to any device — no refreshing needed. Then, by hosting my HTML, CSS, and JavaScript files on GitHub Pages, I turned the interface into a fully functional, mobile-friendly dashboard that looks and feels like a native app. The best part is that GitHub lets me update the code instantly — if I fix a bug or tweak the layout, I just push a new commit and the live site updates automatically. Seeing the live CO₂ data graph update on my phone and tablet in real time felt like a huge win — it’s proof that the whole system works seamlessly across platforms. It’s fast, reliable, and 100% free to host, which makes it not just a prototype, but a complete, scalable web solution.
 ![Screenshot 2025-10-20 1.22.48 PM.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MzgxMSwicHVyIjoiYmxvYl9pZCJ9fQ==--5478482db0b1dc5bed7e2e1476616aabc223eef5/Screenshot%202025-10-20%201.22.48%20PM.png)
   
+
+## 10/20/2025 1:27 PM - MORE BUGS :(  
+
+Getting Firebase and GitHub Pages to work together for real-time CO₂ updates was easily one of the most challenging parts yet. I ran into a ton of bugs along the way — everything from failed database writes to JavaScript fetch errors. Early on, Firebase kept throwing permission-denied errors because my database rules weren’t configured correctly, which prevented the Arduino from posting data. I also had to debug SSL and certificate issues when sending HTTPS requests from the Arduino Uno R4 WiFi — the board wouldn’t connect until I updated the root certificate and double-checked the endpoint URL format. On the front-end side, my fetch requests initially wouldn’t display live data due to CORS restrictions and incorrect JSON parsing. Once that was fixed, I ran into chart refresh bugs, where Chart.js would duplicate datasets or fail to clear old data when new readings came in. On top of that, GitHub Pages introduced its own quirks — it aggressively cached my JavaScript files, so changes wouldn’t appear even after new commits. I fixed that by adding version query strings to my script imports (script.js?v=2.1) and clearing GitHub’s cache manually through commit pushes. Finally, I spent hours tracking down responsive layout issues on mobile browsers — text would overlap, buttons would clip, and graphs would extend off-screen until I added flexible containers, percentage-based widths, and viewport scaling. After countless rounds of testing and debugging, the system now runs smoothly, fetching real-time CO₂ readings from Firebase and displaying them beautifully on any device.
+
+![image.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MzgxMiwicHVyIjoiYmxvYl9pZCJ9fQ==--b5491363b29aeabef17afd0dc1c6090c079f3e9e/image.png)
+
+spent most of the weekend on this :( dang bugs
+on the plus side I won my ultimate turniment  
 
