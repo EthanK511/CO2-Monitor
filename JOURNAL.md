@@ -511,10 +511,20 @@ made it in HTML cuz I was bored in class
 
 made it in HTML cuz I was bord in class  
 
-## 10/20/2025 - Bug Squashing and Device Formatting  
+## 10/20/2025 7:44 AM - Bug Squashing and Device Formatting  
 
 One of the most time-consuming yet rewarding parts of this project was refining the HTML interface for consistent display across all devices. I spent around five and a half hours debugging layout issues to make sure the live CO₂ readings, graph, and status indicators looked clean and readable on desktop, tablet, and mobile screens alike. This involved experimenting with responsive CSS, adjusting flexbox and grid layouts, fine-tuning font scaling, and testing in multiple browsers. At first, certain elements like the live graph or CO₂ value display would overlap or resize incorrectly on smaller screens, but after several iterations and media query adjustments, I achieved a responsive design that adapts smoothly to any format. The end result is a simple, functional, and professional-looking dashboard that can be viewed seamlessly from any device.
 
 ![Screenshot 2025-10-20 7.44.29 AM.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MzcyOCwicHVyIjoiYmxvYl9pZCJ9fQ==--9e77a07f1e72b3034bf1fd4bf3a8192a2ff828c9/Screenshot%202025-10-20%207.44.29%20AM.png)
+  
+
+## 10/20/2025 7:48 AM - web.app  
+
+To take the project beyond a local network webpage, I integrated Firebase and GitHub Pages to turn it into a true web app that could be accessed from anywhere. Using Firebase Realtime Database, I set up cloud data logging so that every CO₂ reading sent from the Arduino Uno R4 WiFi was stored with timestamps and could be fetched dynamically by the web interface. I then hosted the front-end files on GitHub Pages, allowing the same live data to be displayed from a clean, fast, and free hosting solution. A key part of this process was ensuring that the interface looked and worked great on all devices — I tested and optimized it for desktop, tablet, and mobile using responsive design principles and Firebase’s real-time updates to sync data instantly. This combination of cloud hosting, database integration, and open-source deployment made the system not only visually consistent but also scalable, so future sensors or dashboards can be added without changing the underlying infrastructure.
+
+![Screenshot 2025-10-20 7.47.47 AM.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MzczMCwicHVyIjoiYmxvYl9pZCJ9fQ==--2b1175de6995c5d8bbc76c637a509e31b722f24e/Screenshot%202025-10-20%207.47.47%20AM.png)
+
+
+![Screenshot 2025-10-20 7.47.23 AM.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MzcyOSwicHVyIjoiYmxvYl9pZCJ9fQ==--c7d52399daea7b74623f2eb0083ed7984a37aecf/Screenshot%202025-10-20%207.47.23%20AM.png)
   
 
