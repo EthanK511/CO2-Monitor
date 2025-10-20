@@ -511,3 +511,10 @@ made it in HTML cuz I was bored in class
 
 made it in HTML cuz I was bord in class  
 
+## 10/20/2025 - Bug Squashing and Device Formatting  
+
+One of the most time-consuming yet rewarding parts of this project was refining the HTML interface for consistent display across all devices. I spent around five and a half hours debugging layout issues to make sure the live CO₂ readings, graph, and status indicators looked clean and readable on desktop, tablet, and mobile screens alike. This involved experimenting with responsive CSS, adjusting flexbox and grid layouts, fine-tuning font scaling, and testing in multiple browsers. At first, certain elements like the live graph or CO₂ value display would overlap or resize incorrectly on smaller screens, but after several iterations and media query adjustments, I achieved a responsive design that adapts smoothly to any format. The end result is a simple, functional, and professional-looking dashboard that can be viewed seamlessly from any device.
+
+![Screenshot 2025-10-20 7.44.29 AM.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MzcyOCwicHVyIjoiYmxvYl9pZCJ9fQ==--9e77a07f1e72b3034bf1fd4bf3a8192a2ff828c9/Screenshot%202025-10-20%207.44.29%20AM.png)
+  
+
