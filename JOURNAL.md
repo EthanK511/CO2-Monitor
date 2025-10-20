@@ -6,10 +6,6 @@
   ==================================================================
 -->
 
-This is my journal of the design and building process of **CO2 Monitor**.  
-You can view this journal in more detail on **Hack Club Blueprint** [here](https://blueprint.hackclub.com/projects/611).
-
-
 ## 10/17/2025 2:34 PM - Custom HTML Page with Arduino Web page  
 
 To connect the Arduino Uno R4 WiFi to the K30 CO₂ sensor, I used a UART (serial) communication setup. The K30’s TX pin was connected to the Arduino’s RX pin (12), and the K30’s RX pin to the Arduino’s TX pin (13), the K30 ground connected to the Arduino ground, and the K30 VCC connected to the Arduino 5V (when using a Arduino uno R3 or some other boards you may need an external power supply). Using the Arduino’s hardware serial interface, I wrote a simple sketch to request CO₂ concentration data from the sensor and display the live readings on the Serial Monitor. This allowed real-time monitoring of CO₂ levels directly through the Arduino IDE, ensuring reliable data exchange between the sensor and microcontroller.![Screenshot 2025-10-17 2.33.43 PM.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6Mjc1OSwicHVyIjoiYmxvYl9pZCJ9fQ==--93da27057e57f6241bef4271edb813e0b71158d8/Screenshot%202025-10-17%202.33.43%20PM.png)
@@ -533,5 +529,11 @@ To take the project beyond a local network webpage, I integrated Firebase and Gi
 Setting up Firebase and GitHub Pages to work together took a lot of trial and error. I started by creating a Firebase project and linking it to my Arduino using the Realtime Database REST API so it could send JSON-formatted CO₂ readings over HTTPS. One of the first major bugs I ran into was authentication errors — Firebase kept rejecting my POST requests until I adjusted the database rules to allow authenticated writes and formatted the URL correctly with the “.json” endpoint. Another issue came from HTTPS certificate mismatches when connecting from the Arduino Uno R4 WiFi, which required using the WiFiClientSecure library and updating the certificate fingerprint manually. On the front-end, I ran into CORS policy errors when fetching live data from Firebase in JavaScript, which I fixed by restructuring my fetch calls and enabling the proper Firebase web API configuration. Hosting on GitHub Pages introduced its own challenges: cached data wasn’t refreshing properly, so I had to add cache-busting query parameters to the Firebase fetch URLs and disable aggressive caching in the meta tags. I also fought through layout bugs when embedding the site in Google Sites and mobile browsers — charts would resize incorrectly or text would clip on smaller screens until I implemented CSS media queries, viewport scaling, and dynamic resizing with JavaScript. After several hours of debugging and cross-platform testing, the site finally rendered smoothly and updated in real time on all devices.
 
 ![Screenshot 2025-10-20 7.49.24 AM.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MzczMSwicHVyIjoiYmxvYl9pZCJ9fQ==--1ce07e101290ce4366e7b76f2cba27b7e041e3e3/Screenshot%202025-10-20%207.49.24%20AM.png)
+  
+
+## 10/20/2025 1 PM - LIVE Web App with firebase and github  
+
+One of the most exciting parts of this project was realizing that I could use Firebase and GitHub Pages together to make my CO₂ monitor work like a real web app that runs on iPhone and Android. By sending the live sensor data from the Arduino Uno R4 WiFi directly to Firebase Realtime Database, I was able to stream updates instantly to any device — no refreshing needed. Then, by hosting my HTML, CSS, and JavaScript files on GitHub Pages, I turned the interface into a fully functional, mobile-friendly dashboard that looks and feels like a native app. The best part is that GitHub lets me update the code instantly — if I fix a bug or tweak the layout, I just push a new commit and the live site updates automatically. Seeing the live CO₂ data graph update on my phone and tablet in real time felt like a huge win — it’s proof that the whole system works seamlessly across platforms. It’s fast, reliable, and 100% free to host, which makes it not just a prototype, but a complete, scalable web solution.
+![Screenshot 2025-10-20 1.22.48 PM.png](https://blueprint.hackclub.com/user-attachments/blobs/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MzgxMSwicHVyIjoiYmxvYl9pZCJ9fQ==--5478482db0b1dc5bed7e2e1476616aabc223eef5/Screenshot%202025-10-20%201.22.48%20PM.png)
   
 
